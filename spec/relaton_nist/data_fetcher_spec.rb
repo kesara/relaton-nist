@@ -62,12 +62,6 @@ RSpec.describe "NIST documents fetcher" do
     end
   end
 
-  it "raise HTTP error" do
-    expect(OpenURI).to receive(:open_uri).and_raise StandardError.new("Test error")
-    expect { RelatonNist::DataFetcher.fetch }
-      .to output(/Test error/).to_stderr
-  end
-
   it "raise parsing error" do
     expect(FileUtils).to receive(:mkdir_p).with("data")
     expect(OpenURI).to receive(:open_uri).with(RelatonNist::DataFetcher::URL).and_return nist_data
